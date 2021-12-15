@@ -11,7 +11,7 @@ public class BLEController : MonoBehaviour
     private Text _MacAddr;
 
     private Text _bleStatusLabel;
-    private Text _gear1, _gear2, _steer, _power, _fBrake, _rBrake, _reset, _cadence, _speed;
+    private Text _gear1, _gear2, _steer, _power, _fBrake, _rBrake, _reset, _cadence, _speed, _crank, _angle;
 
     private Button _ConnectBtn;
     private Button _DisconnectBtn;
@@ -39,13 +39,13 @@ public class BLEController : MonoBehaviour
         _bleStatusLabel = _bleCanvas.transform.Find("ScanMessage/StatusLabel").GetComponent<Text>();
         _MacAddr = _bleCanvas.transform.Find("MacInputField/MacAddr").GetComponent<Text>();
 
-        _gear1 = _bleCanvas.transform.Find("ReceivedInfo/gear1").GetComponent<Text>();
+        _angle = _bleCanvas.transform.Find("ReceivedInfo/gear1").GetComponent<Text>();
         _gear2 = _bleCanvas.transform.Find("ReceivedInfo/gear2").GetComponent<Text>();
         _steer = _bleCanvas.transform.Find("ReceivedInfo/steer").GetComponent<Text>();
         _power = _bleCanvas.transform.Find("ReceivedInfo/power").GetComponent<Text>();
         _fBrake = _bleCanvas.transform.Find("ReceivedInfo/fBrake").GetComponent<Text>();
         _rBrake = _bleCanvas.transform.Find("ReceivedInfo/rBrake").GetComponent<Text>();
-        _reset = _bleCanvas.transform.Find("ReceivedInfo/reset").GetComponent<Text>();
+        _crank = _bleCanvas.transform.Find("ReceivedInfo/reset").GetComponent<Text>();
         _cadence = _bleCanvas.transform.Find("ReceivedInfo/cadence").GetComponent<Text>();
         _speed = _bleCanvas.transform.Find("ReceivedInfo/speed").GetComponent<Text>();
 
@@ -94,8 +94,13 @@ public class BLEController : MonoBehaviour
     {
         _testLog.text = ("message received");
         bleSid02ControllerMessage = (BleSid02ControllerMessage)bleSid02;
+        _angle.text = bleSid02ControllerMessage.Angle.ToString();
         _speed.text = bleSid02ControllerMessage.Speed.ToString();
         _cadence.text = bleSid02ControllerMessage.RealtimeCadence.ToString();
+        _crank.text = bleSid02ControllerMessage.Crank.ToString();
+        _rBrake.text = bleSid02ControllerMessage.RBrake.ToString();
+        _fBrake.text = bleSid02ControllerMessage.FBrake.ToString();
+
         //string byteArray = System.Text.Encoding.ASCII.GetString(bytes);
         //var tmp = BleProtocalsHelper.ParseBleMessage(bytes);
         //if (tmp != null)
