@@ -90,7 +90,7 @@ public class BLEController : MonoBehaviour
         
     }
 
-    private void receiveMessage(byte[] bytes)
+    public void receiveMessage(byte[] bytes)
     {
         _testLog.text = ("message received");
         //string byteArray = System.Text.Encoding.ASCII.GetString(bytes);
