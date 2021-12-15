@@ -189,7 +189,7 @@ public class BLEAdaperComponent: AdapterBase
         //Debug.Log("开始发送: " + BitConverter.ToString((byte[]) (Array) sbytes.ToArray()));
         BluetoothLEHardwareInterface.WriteCharacteristic(
             this.MacAddress, this.ServiceUuid, this.UpCharacteristicUuid,
-            sbytes.ToArray(), sbytes.Count, true, (s) =>
+            sbytes.Cast<byte>().ToArray(), sbytes.Count, true, (s) =>
             {
                 /*Debug.Log("发送成功");*/
             }

@@ -444,7 +444,7 @@ public static class BleProtocalsHelper
         var bytes = System.Text.Encoding.UTF8.GetBytes(ssid);
         if(bytes.Length > 64)
         {
-            throw new InconsistParamException("ssid不能超过64个字符");
+            //throw new InconsistParamException("ssid不能超过64个字符");
         }
 
         var ret = new sbyte[67];
@@ -469,14 +469,14 @@ public static class BleProtocalsHelper
         //3|sbytes|64|pw
         if(System.Text.Encoding.UTF8.GetByteCount(wifiPassword) != wifiPassword.Length)
         {
-            throw new InconsistParamException("不支持非英文和数字的wifi 密码");
+            //throw new InconsistParamException("不支持非英文和数字的wifi 密码");
         }
 
         var bytes = System.Text.Encoding.UTF8.GetBytes(wifiPassword);
 
         if(bytes.Length > 64)
         {
-            throw new InconsistParamException("密码不能超过64个字符");
+            //throw new InconsistParamException("密码不能超过64个字符");
         }
 
         var ret = new sbyte[67];

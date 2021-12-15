@@ -30,7 +30,7 @@ public abstract class AdapterBase
     /// <param name="rawData"></param>
     protected void OnReceviedData(byte[] rawData)
     {
-        LogHelper.LogDebug($"bk data: {BitConverter.ToString(rawData)}");
+        //LogHelper.LogDebug($"bk data: {BitConverter.ToString(rawData)}");
         switch((sbyte)rawData[1])
         {
             case BleCmd.Sid02ControlCmd:
