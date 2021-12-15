@@ -6,6 +6,8 @@ public class BLEController : MonoBehaviour
 {
     public const string MacAddrSZ = "BC:97:40:40:87:46";
     public const string MacAddrCD = "BC:97:40:40:87:CB";
+    private int test = 1;
+    private Text _testLog;
     private Text _MacAddr;
 
     private Text _bleStatusLabel;
@@ -33,6 +35,7 @@ public class BLEController : MonoBehaviour
         bleAdaper.AddOnDataHandler(receiveMessage);
         GameObject _bleCanvas = GameObject.Find("BleCanvas");
 
+        _testLog = _bleCanvas.transform.Find("TestLog/Logs").GetComponent<Text>();
         _bleStatusLabel = _bleCanvas.transform.Find("ScanMessage/StatusLabel").GetComponent<Text>();
         _MacAddr = _bleCanvas.transform.Find("MacInputField/MacAddr").GetComponent<Text>();
 
@@ -63,13 +66,16 @@ public class BLEController : MonoBehaviour
 
     private void onConnectClicked()
     {
-        _ = bleAdaper.ScanToConnectBK(_MacAddr.text);
+        _ = bleAdaper.ScanToConnectBK(MacAddrSZ);
         Debug.Log("button clicked");
+        _testLog.text = ("connect is called");
     }
 
     private void onUnconnectClicked()
     {
-        if(bleAdaper.Connected.Value) bleAdaper.DisconnectBK();
+        _testLog.text = ("unconnect is called");
+        if (bleAdaper.Connected.Value) bleAdaper.DisconnectBK();
+        else Debug.Log("unconnected");
     }
 
     private void sendMessage()
@@ -86,6 +92,7 @@ public class BLEController : MonoBehaviour
 
     private void receiveMessage(byte[] bytes)
     {
+        _testLog.text = ("message received");
         //string byteArray = System.Text.Encoding.ASCII.GetString(bytes);
         var tmp = BLEProtocalsHelper.ParseBleMessage(bytes);
         if (tmp != null)
@@ -93,9 +100,11 @@ public class BLEController : MonoBehaviour
             ble2GameMessage = (Ble2GameMessage)tmp;
             _gear1.text = ble2GameMessage.gear1.ToString();
             _gear2.text = ble2GameMessage.gear2.ToString();
+            _steer.text = ble2GameMessage.power.ToString();
             _power.text = ble2GameMessage.power.ToString();
             _rBrake.text = ble2GameMessage.rBrake.ToString();
             _reset.text = ble2GameMessage.reset.ToString();
+            _fBrake.text = ble2GameMessage.fBrake.ToString();
             _cadence.text = ble2GameMessage.cadence.ToString();
             _speed.text = ble2GameMessage.speed.ToString();
         }
